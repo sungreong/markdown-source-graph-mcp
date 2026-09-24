@@ -1,10 +1,17 @@
 # Markdown Source Graph MCP
 
+## 🌐 웹사이트에서 보기
+
+**처음 방문했다면 여기부터 시작하세요:**
+[프로젝트 소개·도구 목록·설치 순서 열기 →](https://sungreong.github.io/markdown-source-graph-mcp/)
+
 ![Agent Docs for Markdown이 각 워크스페이스에 Source Graph를 만들고, 여러 그래프가 하나의 Markdown Source Graph MCP로 연결되는 구성](assets/markdown-source-graph-hero.png)
 
 [Agent Docs for Markdown](https://marketplace.visualstudio.com/items?itemName=datanewbie-labs.markdown-agent-docs)이
 만든 로컬 Source Graph를 Codex, Claude Code, Gemini CLI에서 검색 도구로 사용할 수 있게 해주는
 Docker 기반 MCP 서버입니다.
+
+![Markdown Source Graph MCP GitHub Pages 소개 화면](assets/github-pages-preview.png)
 
 Markdown 원문과 `.mps/source-graph.sqlite`는 읽기 전용으로 마운트됩니다. 서버는 문서를 수정하지
 않고, 검색용 캐시만 별도의 Docker 볼륨에 저장합니다.
@@ -14,6 +21,7 @@ Markdown 원문과 `.mps/source-graph.sqlite`는 읽기 전용으로 마운트�
 - 처음 설치부터 Codex 등록까지: [GETTING_STARTED.md](GETTING_STARTED.md)
 - Single, Hub, 오류 및 실제 E2E 검증: [SCENARIOS.md](SCENARIOS.md)
 - 저장소에서 작업하는 에이전트 지침: [AGENTS.md](AGENTS.md)
+- GitHub Pages 안내 사이트 운영: [docs/github-pages.md](docs/github-pages.md)
 
 ## 제공하는 기능
 
@@ -372,6 +380,7 @@ docker compose build
 ├─ docs/clients/                   # Codex, Claude Code, Gemini CLI 가이드
 ├─ docs/dashboard.md               # 상태 화면과 MCP 호출 감사 이력
 ├─ docs/prompt-pack.md             # 설치·사용 프롬프트 색인
+├─ docs/github-pages.md            # 공개 프로젝트 안내 사이트와 배포 방식
 ├─ examples/clients/               # 클라이언트별 설정 파일
 ├─ examples/prompts/setup/         # 공통·클라이언트별 설치 프롬프트
 ├─ examples/prompts/usage/         # 다중 검색·조사·운영 프롬프트
@@ -381,6 +390,8 @@ docker compose build
 ├─ GETTING_STARTED.md               # 설치부터 첫 사용까지
 ├─ SCENARIOS.md                     # 실행·오류·E2E 검증 시나리오
 ├─ LICENSE                          # MIT License
+├─ index.html                       # GitHub Pages 프로젝트 소개 사이트
+├─ site/                            # 소개 사이트 스타일과 동작
 ├─ Dockerfile
 ├─ docker-compose.yml
 ├─ docker-compose.multi.yml          # 서로 떨어진 여러 경로의 명시적 마운트

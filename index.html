@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agent Docs for Markdown의 Source Graph를 Codex, Claude Code, Gemini CLI에서 검색하는 로컬 전용 MCP 서버">
+  <meta name="theme-color" content="#6555e8">
+  <meta property="og:title" content="Markdown Source Graph MCP">
+  <meta property="og:description" content="흩어진 Markdown 지식을 AI 에이전트가 안전하게 검색하도록 연결하세요.">
+  <meta property="og:image" content="https://sungreong.github.io/markdown-source-graph-mcp/assets/markdown-source-graph-hero.png">
+  <link rel="canonical" href="https://sungreong.github.io/markdown-source-graph-mcp/">
+  <title>Markdown Source Graph MCP</title>
+  <link rel="stylesheet" href="site/styles.css">
+  <script src="site/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Markdown Source Graph MCP 홈">
+      <span class="brand-mark">M</span>
+      <span><strong>Markdown Source Graph</strong><small>MCP</small></span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">메뉴</button>
+    <nav id="site-nav" aria-label="주요 메뉴">
+      <a href="#features">기능</a>
+      <a href="#tools">도구</a>
+      <a href="#install">설치</a>
+      <a href="#dashboard">대시보드</a>
+      <a class="nav-github" href="https://github.com/sungreong/markdown-source-graph-mcp">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-glow hero-glow-one"></div>
+      <div class="hero-glow hero-glow-two"></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> LOCAL-FIRST KNOWLEDGE MCP</div>
+        <h1>흩어진 Markdown을<br><em>AI가 찾을 수 있는 지식</em>으로.</h1>
+        <p>Agent Docs for Markdown이 만든 Source Graph를 Codex, Claude Code, Gemini CLI에 연결하는 읽기 전용 MCP 서버입니다.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#install">5분 만에 시작하기</a>
+          <a class="button secondary" href="https://github.com/sungreong/markdown-source-graph-mcp">소스 코드 보기</a>
+        </div>
+        <div class="trust-row">
+          <span>✓ MIT License</span><span>✓ Docker Compose</span><span>✓ localhost only</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Markdown 워크스페이스가 MCP를 통해 AI 클라이언트에 연결되는 구조">
+        <div class="visual-window">
+          <div class="window-bar"><i></i><i></i><i></i><span>knowledge-hub</span></div>
+          <div class="graph-area">
+            <div class="node root-node"><b>Source Graph</b><small>.mps/source-graph.sqlite</small></div>
+            <div class="connector connector-a"></div><div class="connector connector-b"></div>
+            <div class="node workspace-node node-a"><span>AI</span><div><b>ai-monitoring</b><small>31,274 docs</small></div></div>
+            <div class="node workspace-node node-b"><span>CS</span><div><b>career-signal</b><small>732 docs</small></div></div>
+            <div class="mcp-pill">MCP · read only</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro" id="features">
+      <div class="section-heading centered">
+        <span class="kicker">WHY THIS PROJECT</span>
+        <h2>Markdown은 그대로 두고,<br>찾는 방식만 더 똑똑하게</h2>
+        <p>문서 원문과 Source Graph는 읽기 전용입니다. 검색 캐시만 별도 Docker 볼륨에 저장합니다.</p>
+      </div>
+      <div class="feature-grid">
+        <article><span class="feature-icon purple">⌕</span><h3>내용 기반 검색</h3><p>제목과 본문, 관련 heading을 함께 검색하고 바로 읽을 줄 범위를 선택합니다.</p></article>
+        <article><span class="feature-icon blue">◇</span><h3>여러 워크스페이스</h3><p>Single, Hub, Named Multi-root 모드로 한 개부터 여러 지식 공간까지 연결합니다.</p></article>
+        <article><span class="feature-icon green">⌁</span><h3>링크 영향 분석</h3><p>문서의 링크와 backlink를 조회해 변경 전 함께 확인해야 할 자료를 찾습니다.</p></article>
+        <article><span class="feature-icon orange">▣</span><h3>로컬 모니터링</h3><p>검색, 호출 파라미터, 처리 시간과 오류를 웹 대시보드에서 확인합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section tools-section" id="tools">
+      <div class="section-heading split-heading">
+        <div><span class="kicker">8 MCP TOOLS</span><h2>에이전트가 사용하는 도구</h2></div>
+        <p>목록 확인부터 검색, 읽기, 연결 관계 조사까지 하나의 안전한 흐름으로 제공합니다.</p>
+      </div>
+      <div class="flow" aria-label="권장 도구 호출 순서">
+        <span>1. 루트 목록</span><b>→</b><span>2. 관련 루트 선택</span><b>→</b><span>3. 검색</span><b>→</b><span>4. 읽기·링크 확인</span>
+      </div>
+      <div class="tool-grid">
+        <article><code>list_markdown_roots</code><h3>워크스페이스 목록</h3><p>연결된 루트 ID, 설명, 문서 수와 인덱스 상태를 확인합니다.</p><span class="tag">첫 호출 추천</span></article>
+        <article><code>find_relevant_markdown_roots</code><h3>질문에 맞는 루트 찾기</h3><p>질문을 각 루트에 대입해 검색할 워크스페이스 후보와 근거를 반환합니다.</p><span class="tag">query · limit</span></article>
+        <article><code>search_markdown</code><h3>선택 루트 검색</h3><p>하나의 워크스페이스에서 제목과 본문을 검색합니다.</p><span class="tag">root_id · query · limit</span></article>
+        <article><code>search_all_markdown</code><h3>전체 동시 검색</h3><p>여러 루트 결과를 번갈아 배치해 특정 공간의 독점을 막습니다.</p><span class="tag">query · limit_per_root</span></article>
+        <article><code>read_markdown</code><h3>문서 구간 읽기</h3><p>검색한 Markdown 파일에서 필요한 줄 범위만 안전하게 읽습니다.</p><span class="tag">relative_path · start_line</span></article>
+        <article><code>get_markdown_links</code><h3>링크와 Backlink</h3><p>문서가 참조하는 링크와 이 문서를 참조하는 문서를 함께 조회합니다.</p><span class="tag">root_id · relative_path</span></article>
+        <article><code>get_source_graph_status</code><h3>인덱스 상태</h3><p>Source Graph 종류, 문서 수, 캐시 최신성과 오류를 확인합니다.</p><span class="tag">운영 점검</span></article>
+        <article><code>refresh_markdown_root</code><h3>캐시 새로고침</h3><p>현재 Source Graph를 읽어 검색 캐시를 즉시 다시 만듭니다.</p><span class="tag">원문 수정 없음</span></article>
+      </div>
+    </section>
+
+    <section class="section install-section" id="install">
+      <div class="section-heading centered">
+        <span class="kicker">GETTING STARTED</span>
+        <h2>설치부터 첫 검색까지</h2>
+        <p>Windows PowerShell 기준입니다. macOS와 Linux에서도 같은 Compose 구성을 사용할 수 있습니다.</p>
+      </div>
+      <ol class="steps">
+        <li><span>01</span><div><h3>Agent Docs 확장 설치</h3><p>VS Code에서 확장을 설치하고 검색할 Markdown 워크스페이스를 엽니다.</p><pre><code>code --install-extension datanewbie-labs.markdown-agent-docs</code><button class="copy" type="button">복사</button></pre></div></li>
+        <li><span>02</span><div><h3>Source Graph 생성</h3><p><b>Agent Docs: Initialize Source Graph</b>와 <b>Start Graph</b>를 실행해 아래 파일을 만듭니다.</p><pre><code>&lt;workspace&gt;/.mps/source-graph.sqlite</code><button class="copy" type="button">복사</button></pre></div></li>
+        <li><span>03</span><div><h3>저장소 클론과 경로 설정</h3><p><code>.env</code>의 <code>MARKDOWN_MOUNT_SOURCE</code>를 실제 워크스페이스 경로로 변경합니다.</p><pre><code>git clone https://github.com/sungreong/markdown-source-graph-mcp.git
+cd markdown-source-graph-mcp
+Copy-Item .env.example .env</code><button class="copy" type="button">복사</button></pre></div></li>
+        <li><span>04</span><div><h3>Docker로 실행</h3><p>경로를 먼저 검사한 뒤 로컬 전용 MCP 서버를 시작합니다.</p><pre><code>python scripts/check_workspace.py "C:/path/to/workspace"
+docker compose up -d --build
+Invoke-RestMethod http://127.0.0.1:8811/healthz</code><button class="copy" type="button">복사</button></pre></div></li>
+        <li><span>05</span><div><h3>AI 클라이언트에 등록</h3><div class="client-tabs" role="tablist"><button class="client-tab active" data-client="codex" type="button">Codex</button><button class="client-tab" data-client="claude" type="button">Claude Code</button><button class="client-tab" data-client="gemini" type="button">Gemini CLI</button></div><pre class="client-command"><code id="client-command">codex mcp add markdownSourceGraph --url http://127.0.0.1:8811/mcp
+codex mcp list</code><button class="copy" type="button">복사</button></pre></div></li>
+      </ol>
+      <div class="doc-actions"><a class="button primary" href="https://github.com/sungreong/markdown-source-graph-mcp/blob/main/GETTING_STARTED.md">전체 설치 가이드</a><a class="text-link" href="https://github.com/sungreong/markdown-source-graph-mcp/tree/main/examples/prompts">에이전트용 프롬프트 보기 →</a></div>
+    </section>
+
+    <section class="section modes-section">
+      <div class="section-heading split-heading"><div><span class="kicker">WORKSPACE MODES</span><h2>규모에 맞게 연결하세요</h2></div><p>컨테이너 실행 후 임의 경로를 열지 않고, 시작할 때 허용한 범위만 검색합니다.</p></div>
+      <div class="mode-grid">
+        <article><span class="mode-label">SINGLE</span><h3>워크스페이스 하나</h3><p>개인 위키나 하나의 프로젝트를 가장 간단하게 연결합니다.</p><code>MARKDOWN_MCP_MODE=single</code></article>
+        <article class="recommended"><span class="recommend-badge">RECOMMENDED</span><span class="mode-label">HUB</span><h3>공통 폴더 아래 여러 개</h3><p>허용된 상위 폴더 안에서 Source Graph를 찾아 <code>root_id</code>로 전환합니다.</p><code>MARKDOWN_MCP_MODE=hub</code></article>
+        <article><span class="mode-label">MULTI-ROOT</span><h3>서로 떨어진 여러 경로</h3><p>각 경로를 명시적으로 읽기 전용 마운트하고 고유 ID를 부여합니다.</p><code>docker-compose.multi.yml</code></article>
+      </div>
+    </section>
+
+    <section class="section dashboard-section" id="dashboard">
+      <div class="section-heading centered light"><span class="kicker">LOCAL DASHBOARD</span><h2>검색과 운영 상태를 한 화면에서</h2><p>Docker 실행 후 <code>http://127.0.0.1:8811/</code>에서만 확인할 수 있습니다.</p></div>
+      <div class="preview-tabs" role="tablist">
+        <button class="preview-tab active" data-image="assets/dashboard-overview.png" type="button">한눈에 보기</button>
+        <button class="preview-tab" data-image="assets/dashboard-search.png" type="button">지식 검색</button>
+        <button class="preview-tab" data-image="assets/dashboard-tools.png" type="button">도구 안내</button>
+        <button class="preview-tab" data-image="assets/dashboard-activity.png" type="button">사용 이력</button>
+        <button class="preview-tab" data-image="assets/dashboard-prompts.png" type="button">프롬프트</button>
+      </div>
+      <figure class="dashboard-frame"><div class="frame-bar"><i></i><i></i><i></i><span>127.0.0.1:8811</span></div><img id="dashboard-preview" src="assets/dashboard-overview.png" alt="Markdown Knowledge Hub 대시보드 미리보기"></figure>
+      <div class="local-note"><span>ⓘ</span><p><b>이 GitHub Pages 사이트는 제품 안내 페이지입니다.</b> 개인 Markdown 검색과 호출 이력은 외부로 전송되지 않으며, 사용자의 컴퓨터에서 실행한 로컬 대시보드에서만 제공됩니다.</p></div>
+    </section>
+
+    <section class="section security-section">
+      <div class="security-card">
+        <div><span class="kicker">SECURITY BY DEFAULT</span><h2>내 문서는 내 컴퓨터 안에</h2><p>서버는 Markdown을 수정하거나 삭제하는 도구를 제공하지 않습니다.</p></div>
+        <ul><li><span>✓</span> <code>127.0.0.1</code>에만 포트 공개</li><li><span>✓</span> 워크스페이스 read-only 마운트</li><li><span>✓</span> 문서 본문을 감사 로그에 저장하지 않음</li><li><span>✓</span> 허용한 워크스페이스만 검색</li></ul>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <span class="kicker">READY TO CONNECT?</span><h2>Markdown 지식을<br>에이전트의 도구로 연결하세요.</h2>
+      <div><a class="button primary" href="https://github.com/sungreong/markdown-source-graph-mcp">GitHub에서 시작하기</a><a class="button secondary" href="https://marketplace.visualstudio.com/items?itemName=datanewbie-labs.markdown-agent-docs">Agent Docs 설치</a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="brand"><span class="brand-mark">M</span><span><strong>Markdown Source Graph</strong><small>MCP</small></span></div><p>Local-first knowledge search for AI agents.</p><div><a href="https://github.com/sungreong/markdown-source-graph-mcp/blob/main/LICENSE">MIT License</a><a href="https://github.com/sungreong/markdown-source-graph-mcp">GitHub</a></div></footer>
+  <div class="toast" role="status" aria-live="polite">명령을 복사했습니다</div>
+</body>
+</html>
