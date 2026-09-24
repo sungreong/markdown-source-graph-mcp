@@ -380,6 +380,7 @@ docker compose build
 ├─ AGENTS.md                        # 작업 에이전트용 필수 지침
 ├─ GETTING_STARTED.md               # 설치부터 첫 사용까지
 ├─ SCENARIOS.md                     # 실행·오류·E2E 검증 시나리오
+├─ LICENSE                          # MIT License
 ├─ Dockerfile
 ├─ docker-compose.yml
 ├─ docker-compose.multi.yml          # 서로 떨어진 여러 경로의 명시적 마운트
@@ -394,3 +395,7 @@ docker compose build
 - [Codex MCP 설정 참고](https://developers.openai.com/learn/docs-mcp)
 - [Claude Code MCP 문서](https://code.claude.com/docs/en/mcp)
 - [Gemini CLI MCP 서버 문서](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
+
+## 라이선스
+
+이 프로젝트는 [MIT License](LICENSE)로 배포됩니다.
