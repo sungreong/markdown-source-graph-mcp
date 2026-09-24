@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "markdown-source-graph": {
+      "type": "http",
+      "url": "http://127.0.0.1:8811/mcp"
+    }
+  }
+}
+

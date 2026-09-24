@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "markdown-source-graph": {
+      "httpUrl": "http://127.0.0.1:8811/mcp",
+      "timeout": 600000,
+      "trust": false
+    }
+  }
+}
+

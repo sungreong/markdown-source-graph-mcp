@@ -1,0 +1,41 @@
+services:
+  markdown-source-graph-mcp:
+    build:
+      context: .
+    image: markdown-source-graph-mcp:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MCP_PORT:-8811}:8811"
+    environment:
+      MARKDOWN_MCP_MODE: multi
+      MARKDOWN_MCP_ROOTS_JSON: >-
+        [
+          {"id":"ai-monitoring","path":"/workspaces/ai-monitoring","public_path":"${MARKDOWN_ROOT_1_SOURCE}","description":"${MARKDOWN_ROOT_1_DESCRIPTION:-AI monitoring, reports, pipelines, and operational documentation}"},
+          {"id":"career-signal","path":"/workspaces/career-signal","public_path":"${MARKDOWN_ROOT_2_SOURCE}","description":"${MARKDOWN_ROOT_2_DESCRIPTION:-Career signals, job research, applications, and personal career documentation}"}
+        ]
+      MARKDOWN_MCP_STATE_DIR: /data
+    volumes:
+      - type: bind
+        source: ${MARKDOWN_ROOT_1_SOURCE:?Set MARKDOWN_ROOT_1_SOURCE in .env.multi}
+        target: /workspaces/ai-monitoring
+        read_only: true
+      - type: bind
+        source: ${MARKDOWN_ROOT_2_SOURCE:?Set MARKDOWN_ROOT_2_SOURCE in .env.multi}
+        target: /workspaces/career-signal
+        read_only: true
+      - type: volume
+        source: markdown_mcp_multi_state
+        target: /data
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8811/healthz', timeout=3).read()"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  markdown_mcp_multi_state:

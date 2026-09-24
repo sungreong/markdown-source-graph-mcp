@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="650" viewBox="0 0 1800 650" role="img" aria-labelledby="title description">
+  <title id="title">Agent Docs for Markdown 설치부터 여러 Source Graph를 하나의 MCP로 검색하기까지</title>
+  <desc id="description">왼쪽에서 오른쪽으로 VS Code 확장 설치, 여러 Markdown 워크스페이스 열기, 각각 Source Graph 생성, 세 Source Graph를 하나의 Markdown Source Graph MCP에 연결하여 AI 클라이언트에서 검색하는 흐름</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101b32"/><stop offset="1" stop-color="#18254a"/></linearGradient>
+    <linearGradient id="panel" x2="0" y2="1"><stop stop-color="#263958"/><stop offset="1" stop-color="#1b2a47"/></linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4 1 7" fill="none" stroke="#70d3e3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#070e20" flood-opacity=".32"/></filter>
+    <style>
+      text { font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', 'Segoe UI', sans-serif; }
+      .kicker { fill:#72d8e8; font-size:16px; font-weight:750; letter-spacing:2px; }
+      .title { fill:#f6f8ff; font-size:34px; font-weight:750; }
+      .step { fill:#89a7cd; font-size:16px; font-weight:750; letter-spacing:1.3px; }
+      .heading { fill:#f5f8ff; font-size:25px; font-weight:750; }
+      .body { fill:#c9d7ed; font-size:18px; font-weight:500; }
+      .label { fill:#e9f4ff; font-size:16px; font-weight:700; }
+      .small { fill:#aebfda; font-size:15px; font-weight:550; }
+      .mono { fill:#c8f3f7; font-family:'Cascadia Code',Consolas,monospace; font-size:15px; font-weight:650; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="650" rx="28" fill="url(#bg)"/>
+  <circle cx="1700" cy="70" r="190" fill="#7262d9" opacity=".07"/>
+  <text class="kicker" x="60" y="58">VS CODE EXTENSION → SOURCE GRAPHS → ONE MCP</text>
+  <text class="title" x="60" y="108">확장 설치부터 여러 워크스페이스 통합 검색까지</text>
+
+  <path d="M345 338H367" stroke="#70d3e3" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M660 338H682" stroke="#70d3e3" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M975 338H1004" stroke="#70d3e3" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <!-- 1: install the exact VS Code extension -->
+  <rect x="60" y="151" width="285" height="399" rx="22" fill="url(#panel)" stroke="#4b668c" filter="url(#shadow)"/>
+  <rect x="60" y="151" width="285" height="6" rx="3" fill="#56cbe2"/>
+  <text class="step" x="85" y="200">01 · VS CODE</text>
+  <rect x="85" y="228" width="235" height="124" rx="15" fill="#14243d" stroke="#527796"/>
+  <rect x="85" y="228" width="235" height="25" rx="15" fill="#263e5c"/>
+  <circle cx="102" cy="241" r="4" fill="#ff917e"/><circle cx="115" cy="241" r="4" fill="#fbd37e"/><circle cx="128" cy="241" r="4" fill="#79d9a4"/>
+  <path d="M120 278l25-16v58l-25-16-12 9-10-5v-33l10-5zm0 0-12 9v10l12 7m0-26 25 21m-25 5 25-21" fill="none" stroke="#5ab6f7" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="163" y="275" width="131" height="9" rx="4" fill="#466587"/>
+  <rect x="163" y="296" width="108" height="9" rx="4" fill="#466587"/>
+  <rect x="163" y="317" width="120" height="9" rx="4" fill="#466587"/>
+  <text class="heading" x="85" y="401">확장 설치</text>
+  <text class="body" x="85" y="435">VS Code Marketplace</text>
+  <rect x="83" y="463" width="239" height="61" rx="12" fill="#164866" stroke="#4ab7d2"/>
+  <text class="label" x="96" y="489">Agent Docs for</text>
+  <text class="label" x="96" y="512">Markdown</text>
+
+  <!-- 2: one folder per workspace -->
+  <rect x="375" y="151" width="285" height="399" rx="22" fill="url(#panel)" stroke="#4b668c" filter="url(#shadow)"/>
+  <rect x="375" y="151" width="285" height="6" rx="3" fill="#b2a6f4"/>
+  <text class="step" x="400" y="200">02 · WORKSPACES</text>
+  <g fill="#172843" stroke="#6076a8">
+    <rect x="400" y="226" width="235" height="56" rx="11"/><rect x="400" y="292" width="235" height="56" rx="11"/><rect x="400" y="358" width="235" height="56" rx="11"/>
+  </g>
+  <g fill="none" stroke-width="3" stroke-linejoin="round">
+    <path d="M417 245h16l5 6h16v17h-37z" stroke="#7bd9ee"/>
+    <path d="M417 311h16l5 6h16v17h-37z" stroke="#b9aaff"/>
+    <path d="M417 377h16l5 6h16v17h-37z" stroke="#8be6bd"/>
+  </g>
+  <text class="label" x="469" y="261">/docs</text>
+  <text class="label" x="469" y="327">/product</text>
+  <text class="label" x="469" y="393">/engineering</text>
+  <text class="heading" x="400" y="459">폴더별로 열기</text>
+  <text class="body" x="400" y="493">각 Markdown 폴더를</text>
+  <text class="body" x="400" y="522">VS Code에서 열기</text>
+
+  <!-- 3: build one Source Graph for each workspace -->
+  <rect x="690" y="151" width="285" height="399" rx="22" fill="url(#panel)" stroke="#4b668c" filter="url(#shadow)"/>
+  <rect x="690" y="151" width="285" height="6" rx="3" fill="#f2b989"/>
+  <text class="step" x="715" y="200">03 · SOURCE GRAPH</text>
+  <circle cx="831" cy="289" r="68" fill="#3d405c" stroke="#817ba8"/>
+  <g fill="none" stroke="#dacaff" stroke-width="3">
+    <path d="M794 292l36-35 38 37-37 34z"/>
+    <path d="M831 257v71M794 292h74"/>
+  </g>
+  <g fill="#d9c8ff"><circle cx="794" cy="292" r="8"/><circle cx="830" cy="257" r="8"/><circle cx="868" cy="294" r="8"/><circle cx="831" cy="328" r="8"/></g>
+  <text class="heading" x="715" y="401">그래프 생성</text>
+  <text class="body" x="715" y="435">Agent Docs → Open Graph</text>
+  <text class="body" x="715" y="464">Initialize Source Graph</text>
+  <text class="body" x="715" y="493">→ Start Graph</text>
+  <text class="small" x="715" y="525">각 폴더에서 한 번씩 실행</text>
+
+  <!-- 4: three independent indexes converge on one MCP -->
+  <rect x="1012" y="151" width="728" height="399" rx="22" fill="url(#panel)" stroke="#5a749d" filter="url(#shadow)"/>
+  <rect x="1012" y="151" width="728" height="6" rx="3" fill="#7edfcf"/>
+  <text class="step" x="1037" y="200">04 · MULTI-WORKSPACE MCP</text>
+  <text class="heading" x="1037" y="236">여러 Source Graph → 하나의 MCP</text>
+
+  <g fill="#152b43" stroke-width="2">
+    <rect x="1037" y="259" width="225" height="58" rx="12" stroke="#65cddd"/>
+    <rect x="1037" y="328" width="225" height="58" rx="12" stroke="#ab9ce9"/>
+    <rect x="1037" y="397" width="225" height="58" rx="12" stroke="#78dbb1"/>
+  </g>
+  <text class="label" x="1051" y="283">/docs · Source Graph</text>
+  <text class="label" x="1051" y="352">/product · Source Graph</text>
+  <text class="label" x="1051" y="421">/engineering · Source Graph</text>
+  <text class="small" x="1051" y="303">.mps/source-graph.sqlite</text>
+  <text class="small" x="1051" y="372">.mps/source-graph.sqlite</text>
+  <text class="small" x="1051" y="441">.mps/source-graph.sqlite</text>
+
+  <path d="M1262 288H1320L1372 357M1262 357H1372M1262 426H1320L1372 357" fill="none" stroke="#70d3e3" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="1384" y="285" width="180" height="144" rx="18" fill="#173f61" stroke="#71cfe7" stroke-width="2"/>
+  <path d="M1422 314h104m-104 18h104m-104 18h69" stroke="#8edbeb" stroke-width="5" stroke-linecap="round"/>
+  <text x="1474" y="393" text-anchor="middle" fill="#f6fbff" font-family="'Segoe UI',sans-serif" font-size="33" font-weight="800">MCP</text>
+  <text class="small" x="1408" y="454">단일 로컬 서버</text>
+  <path d="M1564 357H1605" fill="none" stroke="#70d3e3" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="1617" y="305" width="97" height="105" rx="14" fill="#1b3150" stroke="#798fbe"/>
+  <path d="M1637 335l14 11-14 11m20 0h23" fill="none" stroke="#b3caff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="label" x="1632" y="389">AI 검색</text>
+  <text class="mono" x="1038" y="503">root_id 선택  ·  search_all_markdown 통합 검색</text>
+
+  <path d="M60 580h1680" stroke="#526788" stroke-opacity=".6"/>
+  <text class="small" x="60" y="609">각 Source Graph는 해당 워크스페이스 안에 유지됩니다. MCP는 미리 허용한 여러 루트를 읽기 전용으로 검색합니다.</text>
+</svg>

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markdown-source-graph-mcp"
+version = "0.1.0"
+description = "Read-only MCP server for Agent Docs for Markdown Source Graph indexes"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.29.0,<2"]
+
+[project.scripts]
+markdown-source-graph-mcp = "markdown_source_graph_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
