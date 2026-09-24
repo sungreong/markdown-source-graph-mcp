@@ -183,3 +183,19 @@ list_markdown_roots
 최초 검색 뒤 캐시는 Docker named volume에 저장되므로 Source Graph가 변경되지 않으면 재사용됩니다.
 후보 탐색은 단순히 첫 후보를 정답으로 간주하지 않고, 루트 설명과 샘플 문서의 실제 내용을 AI가
 함께 판단하도록 사용합니다.
+
+## 시나리오 G: Dashboard와 호출 패턴 확인
+
+```powershell
+Start-Process http://127.0.0.1:18812/
+Invoke-RestMethod "http://127.0.0.1:18812/api/activity?limit=10"
+```
+
+실제 검증 결과:
+
+- Overview: Multi 모드, 루트 2개, 문서 32,006개 표시
+- Workspaces: 경로, 설명, 문서 수, 캐시와 Source Graph 시각 표시
+- Activity: `list_markdown_roots` 1회와 동일한 `search_markdown` 2회 표시
+- Parameter Patterns: 검색어 `지원 우선순위`, `root_id=career-signal`, `limit=2` 조합 사용 횟수 2
+- 감사 API: `enabled=true`, 오류 0건
+- Markdown 본문과 검색 결과 전문은 감사 DB에 저장하지 않음

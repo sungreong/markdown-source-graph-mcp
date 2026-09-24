@@ -5,8 +5,12 @@ from pathlib import Path
 
 import pytest
 
+from markdown_source_graph_mcp.audit import AuditStore
 from markdown_source_graph_mcp.service import MarkdownSourceGraphService
 from markdown_source_graph_mcp.hub import ConfiguredRootsService, WorkspaceHubService
+from markdown_source_graph_mcp.dashboard import dashboard_html
+from markdown_source_graph_mcp.prompt_library import list_prompts
+from markdown_source_graph_mcp.tool_catalog import tool_catalog
 
 
 SCHEMA = """
@@ -156,3 +160,79 @@ def test_configured_roots_select_and_describe_separate_mounts(tmp_path: Path):
     assert payload["root_count"] == 2
     with pytest.raises(ValueError, match="Unknown Markdown root"):
         service.source_graph_status("other")
+
+
+def test_dashboard_contains_health_monitoring_ui():
+    html = dashboard_html()
+    assert "Markdown Knowledge Hub" in html
+    assert "./healthz" in html
+    assert "검색 가능한 문서" in html
+    assert "지식 검색" in html
+    assert "질문 패턴" in html
+    assert "바로 쓰는 프롬프트" in html
+    assert "MCP 도구 안내" in html
+
+
+def test_audit_store_records_parameters_without_document_content(tmp_path: Path):
+    audit = AuditStore(
+        {
+            "MARKDOWN_MCP_AUDIT_ENABLED": "true",
+            "MARKDOWN_MCP_AUDIT_MAX_ENTRIES": "100",
+            "MARKDOWN_MCP_STATE_DIR": str(tmp_path),
+        }
+    )
+    result = audit.call(
+        "search_markdown",
+        {"query": "career", "root_id": "career-signal", "limit": 2},
+        lambda: {"results": [{"content": "must not be stored"}], "query": "career"},
+    )
+    assert result["results"][0]["content"] == "must not be stored"
+    data = audit.dashboard_data()
+    assert data["summary"]["total_calls"] == 1
+    assert data["calls"][0]["params"]["root_id"] == "career-signal"
+    assert data["calls"][0]["result"] == {"query": "career", "result_count": 1}
+    assert data["pagination"] == {"page": 1, "page_size": 20, "total": 1, "pages": 1}
+    assert data["tools"] == ["search_markdown"]
+    assert audit.patterns_data()["patterns"][0]["uses"] == 1
+    assert "must not be stored" not in audit.path.read_text(encoding="utf-8", errors="ignore")
+
+
+def test_audit_store_paginates_and_filters(tmp_path: Path):
+    audit = AuditStore(
+        {
+            "MARKDOWN_MCP_AUDIT_ENABLED": "true",
+            "MARKDOWN_MCP_STATE_DIR": str(tmp_path),
+        }
+    )
+    for index in range(7):
+        audit.record("search_markdown", {"query": f"query-{index}"}, "success", 0.01, {}, None)
+    second = audit.dashboard_data(page=2, page_size=5)
+    assert second["pagination"] == {"page": 2, "page_size": 5, "total": 7, "pages": 2}
+    assert len(second["calls"]) == 2
+    assert audit.dashboard_data(query="query-6")["pagination"]["total"] == 1
+
+
+def test_prompt_library_groups_markdown_files(tmp_path: Path):
+    prompt = tmp_path / "codex" / "install.md"
+    prompt.parent.mkdir()
+    prompt.write_text("# Codex Install\n\nDo the setup.\n", encoding="utf-8")
+    items = list_prompts({"MARKDOWN_MCP_PROMPT_DIR": str(tmp_path)})
+    assert items == [
+        {
+            "id": "codex/install.md",
+            "category": "codex",
+            "title": "Codex Install",
+            "content": "# Codex Install\n\nDo the setup.\n",
+        }
+    ]
+
+
+def test_tool_catalog_documents_every_mcp_tool():
+    tools = tool_catalog()
+    assert len(tools) == 8
+    assert {item["name"] for item in tools} >= {
+        "list_markdown_roots",
+        "search_markdown",
+        "search_all_markdown",
+        "read_markdown",
+    }

@@ -41,6 +41,9 @@ docker compose --env-file .env.multi -f docker-compose.multi.yml ps
 Invoke-RestMethod http://127.0.0.1:18812/healthz
 ```
 
+브라우저에서는 `http://127.0.0.1:18812/`을 열어 두 루트의 경로, 설명, 문서 수, 인덱스 갱신 시각,
+캐시 상태와 오류를 한 화면에서 확인할 수 있습니다.
+
 두 경로는 각각 `/workspaces/ai-monitoring`과 `/workspaces/career-signal`에 읽기 전용으로 마운트됩니다.
 하나가 잘못됐지만 다른 하나가 유효하면 health는 HTTP 200과 `status: degraded`를 반환합니다. 둘 다
 쓸 수 없으면 HTTP 503입니다.

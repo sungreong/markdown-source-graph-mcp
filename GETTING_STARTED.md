@@ -144,6 +144,9 @@ Get-NetTCPConnection -State Listen -LocalPort 8811 |
 
 `LocalAddress`가 `127.0.0.1`이어야 합니다.
 
+브라우저에서 `http://127.0.0.1:8811/`을 열면 연결된 워크스페이스, 문서 수, 인덱스와 캐시 상태를
+대시보드로 확인할 수 있습니다. JSON 상태가 필요할 때는 `/healthz`를 사용합니다.
+
 ## 7. Codex에 등록
 
 다른 서버가 같은 포트를 쓰는지 먼저 확인합니다.
@@ -221,3 +224,5 @@ docker compose down -v
 - [Codex 상세 가이드](docs/clients/codex.md)
 - [Hub 모드](docs/hub-mode.md)
 - [Named Multi-root 모드](docs/multi-root.md)
+- [Dashboard와 MCP 호출 이력](docs/dashboard.md)
+- [설치·사용 Prompt Pack](docs/prompt-pack.md)

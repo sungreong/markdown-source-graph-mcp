@@ -6,7 +6,8 @@
 2. `README.md` — 기능, 환경 변수, 도구, 보안 모델
 3. `SCENARIOS.md` — Single/Hub/Codex E2E 및 실패 시나리오
 4. 다중 루트 작업이라면 `docs/multi-root.md`
-5. 작업 대상 클라이언트 문서
+5. 대시보드나 감사 이력 작업이라면 `docs/dashboard.md`
+6. 작업 대상 클라이언트 문서
    - Codex: `docs/clients/codex.md`
    - Claude Code: `docs/clients/claude-code.md`
    - Gemini CLI: `docs/clients/gemini-cli.md`
@@ -26,6 +27,8 @@
   - `markdown-pattern-studio.source-graph`
 - 오류를 숨기지 않습니다. 잘못된 마운트나 인덱스에는 `/healthz`가 HTTP 503과 `error`, `action`을
   반환해야 합니다.
+- 감사 이력에는 도구 파라미터와 결과 요약만 저장하고 Markdown 본문이나 검색 결과 전문을 저장하지
+  않습니다. 대시보드는 로컬 bind 정책을 우회하지 않습니다.
 
 ## 필수 검증
 

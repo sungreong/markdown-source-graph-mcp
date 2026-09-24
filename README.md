@@ -126,6 +126,56 @@ Invoke-RestMethod http://127.0.0.1:8811/healthz
 `status`가 `ok`이고 `mps_index_present`가 `true`이면 준비가 끝났습니다. 경로가 잘못됐거나
 지원되는 `.mps`가 없으면 `/healthz`는 HTTP 503을 반환하고 컨테이너는 `unhealthy`로 표시됩니다.
 
+브라우저 대시보드:
+
+```text
+http://127.0.0.1:8811/
+```
+
+## 5. 웹 대시보드에서 확인하고 검색하기
+
+![Markdown Knowledge Hub의 전체 상태, 문서 수, 최근 활동을 보여주는 대시보드](assets/dashboard-overview.png)
+
+대시보드는 외부 리소스 없이 로컬 MCP 서버에서만 제공됩니다. 연결된 워크스페이스와 문서 수,
+인덱스 상태, 최근 MCP 호출을 한눈에 확인할 수 있고 상태는 10초마다 자동 갱신됩니다.
+
+### Markdown 지식 검색
+
+![워크스페이스를 선택하고 Markdown 문서를 검색하는 화면](assets/dashboard-search.png)
+
+1. **지식 검색** 탭을 엽니다.
+2. 질문이나 키워드를 입력합니다.
+3. **전체 워크스페이스** 또는 특정 워크스페이스를 선택합니다.
+4. **검색**을 누르면 제목, 관련 본문, 파일 경로, 워크스페이스가 표시됩니다.
+5. 결과가 많으면 화면 아래 페이지 버튼으로 다음 결과를 탐색합니다.
+
+검색 상태를 URL에 담아 공유하거나 브라우저 즐겨찾기로 저장할 수도 있습니다.
+
+```text
+http://127.0.0.1:8811/?tab=search&q=지원%20우선순위&root_id=career-signal
+```
+
+### MCP 도구 이해하기
+
+![MCP 도구의 용도, 주요 파라미터, 권장 사용 순서를 보여주는 도구 안내 화면](assets/dashboard-tools.png)
+
+**도구 안내** 탭에는 MCP가 제공하는 모든 도구와 용도, 주요 파라미터가 정리되어 있습니다.
+처음 사용할 때는 `list_markdown_roots` → `find_relevant_markdown_roots` →
+`search_markdown` 또는 `search_all_markdown` 순서를 참고하면 됩니다.
+
+### 클라이언트별 프롬프트 복사하기
+
+![Codex 설치 및 사용 프롬프트를 선택해 복사할 수 있는 프롬프트 화면](assets/dashboard-prompts.png)
+
+**프롬프트** 탭에서 Codex, Claude Code, Gemini CLI를 선택하면 설치와 사용 프롬프트가 나뉘어
+표시됩니다. **복사** 버튼으로 원하는 프롬프트를 복사한 뒤 해당 클라이언트에 그대로 붙여 넣을 수
+있습니다. **사용 이력**과 **질문 패턴** 탭은 검색·필터·페이지 이동을 지원하므로 호출이 많이
+쌓여도 필요한 기록과 자주 쓰는 파라미터 조합을 찾을 수 있습니다.
+
+![도구, 검색어, root_id, 페이지, 처리 시간과 결과 수를 함께 보여주는 사용 이력 화면](assets/dashboard-activity.png)
+
+대시보드 기능과 로컬 감사 로그 보존 설정은 [docs/dashboard.md](docs/dashboard.md)를 참고하세요.
+
 MCP endpoint:
 
 ```text
@@ -139,7 +189,7 @@ docker compose logs -f markdown-source-graph-mcp
 docker compose down
 ```
 
-## 5. AI 클라이언트에 MCP 등록
+## 6. AI 클라이언트에 MCP 등록
 
 클라이언트별 상세 가이드와 복사 가능한 설정 파일을 분리해 두었습니다.
 
@@ -170,7 +220,7 @@ gemini mcp add --transport http --scope project markdown-source-graph http://127
 gemini mcp list
 ```
 
-## 6. 사용 예시
+## 7. 사용 예시
 
 연결한 클라이언트에서 다음과 같이 요청합니다.
 
@@ -190,6 +240,8 @@ docs/architecture.md를 수정하기 전에 이 문서를 참조하는 문서와
 ```
 
 더 많은 복사·붙여넣기 예시는 [examples/prompts/markdown-search.md](examples/prompts/markdown-search.md)에 있습니다.
+에이전트가 경로를 질문하며 설치하도록 맡기는 프롬프트와 클라이언트별 설치·다중 검색·운영 점검
+프롬프트는 [Prompt Pack](docs/prompt-pack.md)에 모아 두었습니다.
 
 ## 여러 워크스페이스 사용
 
@@ -260,6 +312,10 @@ refresh_markdown_root를 root_id="workspace"로 실행해줘.
 - 서버에는 Markdown 작성·삭제 도구가 없습니다.
 - 별도의 인증은 없으므로 포트를 `0.0.0.0`이나 LAN에 공개하지 마세요.
 - 검색 결과와 Markdown 내용은 연결된 AI 클라이언트의 컨텍스트로 전달될 수 있습니다.
+- MCP 호출 메타데이터에는 검색어와 파일 경로가 포함될 수 있으며 로컬 `/data/audit.sqlite3`에
+  제한된 개수만 저장됩니다. 본문과 검색 결과 전문은 저장하지 않습니다.
+
+대시보드 탭과 호출 이력·보존 설정은 [docs/dashboard.md](docs/dashboard.md)를 참고하세요.
 
 ## 문제 해결
 
@@ -314,8 +370,11 @@ docker compose build
 ├─ src/markdown_source_graph_mcp/  # MCP 서버와 Source Graph 서비스
 ├─ tests/                          # SQLite 호환성과 경로 안전성 테스트
 ├─ docs/clients/                   # Codex, Claude Code, Gemini CLI 가이드
+├─ docs/dashboard.md               # 상태 화면과 MCP 호출 감사 이력
+├─ docs/prompt-pack.md             # 설치·사용 프롬프트 색인
 ├─ examples/clients/               # 클라이언트별 설정 파일
-├─ examples/prompts/               # 공통 사용 프롬프트
+├─ examples/prompts/setup/         # 공통·클라이언트별 설치 프롬프트
+├─ examples/prompts/usage/         # 다중 검색·조사·운영 프롬프트
 ├─ scripts/check_workspace.py       # Compose 실행 전 경로·인덱스 검사
 ├─ assets/                          # README 대표 이미지와 설치·검색 흐름도
 ├─ AGENTS.md                        # 작업 에이전트용 필수 지침

@@ -13,10 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt \
     && chown -R app:app /data
 
 COPY --chown=app:app src ./src
+COPY --chown=app:app examples/prompts ./examples/prompts
 
 USER app
 
 EXPOSE 8811
 
 CMD ["python", "-m", "markdown_source_graph_mcp.server", "--host", "0.0.0.0", "--port", "8811"]
-
